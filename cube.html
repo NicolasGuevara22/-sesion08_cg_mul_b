@@ -4,39 +4,34 @@
 	<meta charset="utf-8">
 	<title>MDN Games: Three.js demo</title>
 	<style>
-		body { margin: 0; padding: 0; font-size: 0; }//margin: para la margen del lienzo, padding: se encarga del relleno, font-size: tamaño de letra
-		canvas { width: 100%; height: 100%; }// basicamente el tamaño del lienzo, siendo su altura y ancho
+		body { margin: 0; padding: 0; font-size: 0; }
+		canvas { width: 100%; height: 100%; }
 	</style>
 </head>
 <body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/three.min.js"></script>
 <script>
-	var WIDTH = window.innerWidth;// esta es la variable acho
-	var HEIGHT = window.innerHeight;// variable de la altura
+	var WIDTH = window.innerWidth;
+	var HEIGHT = window.innerHeight;
 
-	var renderer = new THREE.WebGLRenderer({antialias:true});variable para renderizar
-	renderer.setSize(WIDTH, HEIGHT);//tamaño del objeto en cuestion, ancho, altura
-	renderer.setClearColor(0xDDDDDD, 1);//este establece el color
-	document.body.appendChild(renderer.domElement);// aca renderiza
+	var renderer = new THREE.WebGLRenderer({antialias:true});
+	renderer.setSize(WIDTH, HEIGHT);
+	renderer.setClearColor(0xDDDDDD, 1);
+	document.body.appendChild(renderer.domElement);
 
-	var scene = new THREE.Scene();//nueva escena
+	var scene = new THREE.Scene();
 
-	var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT);//camara especializada con el tamaño anterior
-	camera.position.z = 60;//este se basa en la posicion de la camara
-        camera.position.x = 20;
-	scene.add(camera);//agrega la camara
-  
-        const ejesXYZ = new THREE.AxesHelper( 35 );
-        scene.add( ejesXYZ );
+	var camera = new THREE.PerspectiveCamera(70, WIDTH/HEIGHT);
+	camera.position.z = 50;
+	scene.add(camera);
 
+	var boxGeometry = new THREE.BoxGeometry(10, 10, 10);
+	var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
+	var cube = new THREE.Mesh(boxGeometry, basicMaterial);
+	scene.add(cube);
+	cube.rotation.set(0.4, 0.2, 0);
 
-	var boxGeometry = new THREE.BoxGeometry(10, 10, 10);//medidas del objeto, este caso el cubo
-	var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});//color del cubo
-	var cube = new THREE.Mesh(boxGeometry, basicMaterial);//se declara el cubo
-	scene.add(cube);//se agrega el cubo
-	cube.rotation.set(0.4, 0.2, 0);//este se encarga de la rotacion del objeto en cuestion
-
-	function render() {//para renderizar
+	function render() {
 		requestAnimationFrame(render);
 		renderer.render(scene, camera);
 	}
